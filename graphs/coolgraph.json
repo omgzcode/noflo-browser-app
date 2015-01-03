@@ -1,0 +1,112 @@
+{
+    "properties": {
+        "name": "coolgraph",
+        "environment": {
+            "type": "all"
+        }
+    },
+    "inports": {},
+    "outports": {
+        "kick_out": {
+            "process": "core/Kick_1068",
+            "port": "out",
+            "metadata": {
+                "x": 0,
+                "y": 0,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "getelement_error": {
+            "process": "dom/GetElement_bm8ks",
+            "port": "error",
+            "metadata": {
+                "x": 0,
+                "y": 0,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "listenmouse_click": {
+            "process": "interaction/ListenMouse_heteq",
+            "port": "click",
+            "metadata": {
+                "x": 0,
+                "y": 0,
+                "width": 72,
+                "height": 72
+            }
+        }
+    },
+    "groups": [],
+    "processes": {
+        "interaction/ListenMouse_heteq": {
+            "component": "interaction/ListenMouse",
+            "metadata": {
+                "label": "interaction/ListenMouse",
+                "x": 324,
+                "y": 180,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "core/Kick_1068": {
+            "component": "core/Kick",
+            "metadata": {
+                "label": "core/Kick",
+                "x": 504,
+                "y": 180,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "dom/GetElement_bm8ks": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "dom/GetElement",
+                "x": 144,
+                "y": 180,
+                "width": 72,
+                "height": 72
+            }
+        }
+    },
+    "connections": [
+        {
+            "src": {
+                "process": "interaction/ListenMouse_heteq",
+                "port": "click"
+            },
+            "tgt": {
+                "process": "core/Kick_1068",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "dom/GetElement_bm8ks",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "interaction/ListenMouse_heteq",
+                "port": "element"
+            },
+            "metadata": {}
+        },
+        {
+            "data": "hello world",
+            "tgt": {
+                "process": "core/Kick_1068",
+                "port": "data"
+            }
+        },
+        {
+            "data": "#test",
+            "tgt": {
+                "process": "dom/GetElement_bm8ks",
+                "port": "selector"
+            }
+        }
+    ]
+}

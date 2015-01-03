@@ -3,70 +3,121 @@
         "name": "main",
         "environment": {
             "type": "noflo-browser",
-            "content": "<button id='button'>Go!</button>\n<p id='message'></p>"
+            "content": "<p id=\"output\">default</p>\n<button id=\"test\">test</button>\n<button id=\"start\">start</button>"
         },
         "icon": ""
     },
     "inports": {},
     "outports": {},
-    "groups": [],
+    "groups": [
+        {
+            "name": "button",
+            "nodes": [],
+            "metadata": {
+                "description": ""
+            }
+        },
+        {
+            "name": "timerWrite",
+            "nodes": [
+                "core/Drop_dxg8n",
+                "core/RunInterval_9vp23",
+                "dom/GetElement_46hr8",
+                "interaction/ListenMouse_gzgel",
+                "packets/Counter_s45vo"
+            ],
+            "metadata": {
+                "description": ""
+            }
+        }
+    ],
     "processes": {
-        "dom/GetElement_7amk2": {
-            "component": "dom/GetElement",
-            "metadata": {
-                "label": "dom/GetElement",
-                "x": 252,
-                "y": 180,
-                "width": 72,
-                "height": 72
-            }
-        },
-        "core/Output_cg49": {
-            "component": "core/Output",
-            "metadata": {
-                "label": "core/Output",
-                "x": 432,
-                "y": 360,
-                "width": 72,
-                "height": 72
-            }
-        },
-        "dom/WriteHtml_fpz6j": {
+        "dom/WriteHtml_9wabk": {
             "component": "dom/WriteHtml",
             "metadata": {
                 "label": "dom/WriteHtml",
-                "x": 684,
-                "y": 288,
+                "x": 648,
+                "y": 0,
                 "width": 72,
                 "height": 72
             }
         },
-        "dom/GetElement_xvz54": {
+        "dom/GetElement_8o37x": {
             "component": "dom/GetElement",
             "metadata": {
                 "label": "dom/GetElement",
-                "x": 252,
-                "y": 288,
+                "x": 468,
+                "y": 0,
                 "width": 72,
                 "height": 72
             }
         },
-        "interaction/ListenMouse_1l373": {
+        "core/Output_d27t7": {
+            "component": "core/Output",
+            "metadata": {
+                "label": "core/Output",
+                "x": 324,
+                "y": 468,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "core/RunInterval_9vp23": {
+            "component": "core/RunInterval",
+            "metadata": {
+                "label": "core/RunInterval",
+                "x": 288,
+                "y": -216,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "core/Drop_dxg8n": {
+            "component": "core/Drop",
+            "metadata": {
+                "label": "core/Drop",
+                "x": 612,
+                "y": -216,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "packets/Counter_s45vo": {
+            "component": "packets/Counter",
+            "metadata": {
+                "label": "packets/Counter",
+                "x": 468,
+                "y": -216,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "dom/GetElement_46hr8": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "dom/GetElement",
+                "x": 0,
+                "y": -216,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "interaction/ListenMouse_gzgel": {
             "component": "interaction/ListenMouse",
             "metadata": {
                 "label": "interaction/ListenMouse",
-                "x": 432,
-                "y": 180,
+                "x": 144,
+                "y": -216,
                 "width": 72,
                 "height": 72
             }
         },
-        "core/Kick_ey1nh": {
-            "component": "core/Kick",
+        "greg/coolgraph": {
+            "component": "greg/coolgraph",
             "metadata": {
-                "label": "core/Kick",
-                "x": 576,
-                "y": 180,
+                "label": "coolgraph",
+                "x": 216,
+                "y": 72,
                 "width": 72,
                 "height": 72
             }
@@ -75,95 +126,172 @@
     "connections": [
         {
             "src": {
-                "process": "dom/GetElement_xvz54",
+                "process": "dom/GetElement_8o37x",
+                "port": "error"
+            },
+            "tgt": {
+                "process": "core/Output_d27t7",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 1
+            }
+        },
+        {
+            "src": {
+                "process": "core/RunInterval_9vp23",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "packets/Counter_s45vo",
+                "port": "in"
+            },
+            "metadata": {
+                "route": null
+            }
+        },
+        {
+            "src": {
+                "process": "packets/Counter_s45vo",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "core/Drop_dxg8n",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "packets/Counter_s45vo",
+                "port": "count"
+            },
+            "tgt": {
+                "process": "dom/WriteHtml_9wabk",
+                "port": "html"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "dom/GetElement_46hr8",
                 "port": "element"
             },
             "tgt": {
-                "process": "dom/WriteHtml_fpz6j",
+                "process": "interaction/ListenMouse_gzgel",
+                "port": "element"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "interaction/ListenMouse_gzgel",
+                "port": "click"
+            },
+            "tgt": {
+                "process": "core/RunInterval_9vp23",
+                "port": "start"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "dom/GetElement_46hr8",
+                "port": "error"
+            },
+            "tgt": {
+                "process": "core/Output_d27t7",
+                "port": "options"
+            },
+            "metadata": {
+                "route": 1
+            }
+        },
+        {
+            "src": {
+                "process": "dom/GetElement_8o37x",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "dom/WriteHtml_9wabk",
                 "port": "container"
             },
             "metadata": {}
         },
         {
             "src": {
-                "process": "dom/GetElement_7amk2",
-                "port": "element"
+                "process": "interaction/ListenMouse_gzgel",
+                "port": "dblclick"
             },
             "tgt": {
-                "process": "interaction/ListenMouse_1l373",
-                "port": "element"
-            },
-            "metadata": {
-                "route": 0
-            }
-        },
-        {
-            "src": {
-                "process": "dom/GetElement_7amk2",
-                "port": "error"
-            },
-            "tgt": {
-                "process": "core/Output_cg49",
-                "port": "in"
-            },
-            "metadata": {
-                "route": 1
-            }
-        },
-        {
-            "src": {
-                "process": "dom/GetElement_xvz54",
-                "port": "error"
-            },
-            "tgt": {
-                "process": "core/Output_cg49",
-                "port": "in"
-            },
-            "metadata": {
-                "route": 1
-            }
-        },
-        {
-            "src": {
-                "process": "interaction/ListenMouse_1l373",
-                "port": "click"
-            },
-            "tgt": {
-                "process": "core/Kick_ey1nh",
-                "port": "in"
+                "process": "core/RunInterval_9vp23",
+                "port": "stop"
             },
             "metadata": {}
         },
         {
             "src": {
-                "process": "core/Kick_ey1nh",
-                "port": "out"
+                "process": "greg/coolgraph",
+                "port": "kick_out"
             },
             "tgt": {
-                "process": "dom/WriteHtml_fpz6j",
+                "process": "dom/WriteHtml_9wabk",
                 "port": "html"
+            }
+        },
+        {
+            "src": {
+                "process": "greg/coolgraph",
+                "port": "getelement_error"
             },
-            "metadata": {}
+            "tgt": {
+                "process": "core/Output_d27t7",
+                "port": "in"
+            }
         },
         {
-            "data": "#button",
+            "src": {
+                "process": "greg/coolgraph",
+                "port": "listenmouse_click"
+            },
             "tgt": {
-                "process": "dom/GetElement_7amk2",
+                "process": "core/RunInterval_9vp23",
+                "port": "stop"
+            }
+        },
+        {
+            "data": "#output",
+            "tgt": {
+                "process": "dom/GetElement_8o37x",
                 "port": "selector"
             }
         },
         {
-            "data": "#message",
+            "data": "",
             "tgt": {
-                "process": "dom/GetElement_xvz54",
+                "process": "dom/WriteHtml_9wabk",
+                "port": "html"
+            }
+        },
+        {
+            "data": true,
+            "tgt": {
+                "process": "packets/Counter_s45vo",
+                "port": "immediate"
+            }
+        },
+        {
+            "data": "#start",
+            "tgt": {
+                "process": "dom/GetElement_46hr8",
                 "port": "selector"
             }
         },
         {
-            "data": "Hello World!",
+            "data": 1000,
             "tgt": {
-                "process": "core/Kick_ey1nh",
-                "port": "data"
+                "process": "core/RunInterval_9vp23",
+                "port": "interval"
             }
         }
     ]
